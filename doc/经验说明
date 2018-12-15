@@ -1,0 +1,2 @@
+1. 跳转到特定页面
+controll方法的注解需要写成：@Controller 而不是@RestController;如果写成@RestController表示返回的json格式，而不会注解跳转到页面上去
