@@ -12,6 +12,8 @@
 
  function login(){
        data =  $("#useLogin").serialize();
+       name = $("input[name='userName']").text();
+       console.log("name:"+name);
        console.log("data:"+data);
 
      }
