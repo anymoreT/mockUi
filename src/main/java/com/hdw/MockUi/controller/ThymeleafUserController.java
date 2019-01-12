@@ -35,22 +35,20 @@ public class ThymeleafUserController {
         return "/user/userview";
     }
 
-    @PostMapping
+    @PostMapping("savaUser")
     public String saveUser(UserInfo user){
         if(user.getId()==0){
-            iuser.insertUser(user.getCardno(),user.getPsname());
+            iuser.testInsertUser(user.getCardno(),user.getPsname());
+
         }else{
             int a = iuser.updateById(user.getId(),user.getCardno(),user.getPsname());
         }
         return "/common/success";
     }
 
-    //@RequestMapping(value="/testInsertUser", method = RequestMethod.POST, produces="application/json")
-    @RequestMapping(value="/testInsertUser", method = RequestMethod.POST)
+   @RequestMapping(value="/testInsertUser", method = RequestMethod.POST)
     public @ResponseBody void testInserUser(@RequestBody UserInfo user){
-
-         iuser.testInsertUser(user.getCardno(),user.getPsname());
-
+       iuser.testInsertUser(user.getCardno(),user.getPsname());
     }
 
     @GetMapping(value = "edit/{id}")

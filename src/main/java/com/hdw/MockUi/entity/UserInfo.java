@@ -1,5 +1,6 @@
 package com.hdw.MockUi.entity;
 
+
 public class UserInfo {
     private String psname;
     private String cardno;
