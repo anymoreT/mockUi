@@ -1,6 +1,6 @@
-package com.hdw.MockUi.dao;
+package com.hdw.mockUi.dao;
 
-import com.hdw.MockUi.entity.UserInfo;
+import com.hdw.mockUi.entity.UserInfo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

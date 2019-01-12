@@ -1,4 +1,4 @@
-package com.hdw.MockUi;
+package com.hdw.mockUi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

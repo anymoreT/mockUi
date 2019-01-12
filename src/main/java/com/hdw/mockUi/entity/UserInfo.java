@@ -1,4 +1,4 @@
-package com.hdw.MockUi.entity;
+package com.hdw.mockUi.entity;
 
 
 public class UserInfo {

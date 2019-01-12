@@ -1,10 +1,9 @@
-package com.hdw.MockUi.controller;
+package com.hdw.mockUi.controller;
 
-import com.hdw.MockUi.entity.UserInfo;
-import com.hdw.MockUi.service.impl.UserInterFace;
+import com.hdw.mockUi.entity.UserInfo;
+import com.hdw.mockUi.service.impl.UserInterFace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -1,8 +1,8 @@
-package com.hdw.MockUi.service.impl;
+package com.hdw.mockUi.service.impl;
 
-import com.hdw.MockUi.entity.UserInfo;
-import com.hdw.MockUi.service.IUserInterFace;
-import com.hdw.MockUi.dao.UserDao;
+import com.hdw.mockUi.entity.UserInfo;
+import com.hdw.mockUi.service.IUserInterFace;
+import com.hdw.mockUi.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
