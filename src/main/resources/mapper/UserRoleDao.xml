@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hdw.mockUi.dao.UserRoleDao" >
-    <select id="getRole" >
-        select role from userrole where username="#{userName}",
+    <select id="getRole" parameterType="java.lang.String" resultType="string">
+        select role from userrole where username = #{username};
     </select>
-    <select id="getPassword">
-        select password from userrole where username="huangyong"
+
+    <select id="getPassword" parameterType="java.lang.String" resultType="string">
+        select password from userrole where username= #{username};
     </select>
+
 </mapper>

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/test")
 public class ShiroLoginController {
 
-
+   @Autowired
     private UserRoleDao userRoleDao;
 
 
@@ -46,9 +46,10 @@ public class ShiroLoginController {
         // 在认证提交前准备 token（令牌）
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         // 执行认证登陆
+
         subject.login(token);
         //根据权限，指定返回数据
-        String role = userRoleDao.getRole(username);
+        String role = userRoleDao.getRole(username).trim();
         if ("user".equals(role)) {
             return "欢迎登陆";
         }
