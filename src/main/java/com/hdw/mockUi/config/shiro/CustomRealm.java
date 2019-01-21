@@ -6,16 +6,20 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hdw.mockUi.dao.UserRoleDao;
 import java.util.HashSet;
 import java.util.Set;
+import javax.annotation.Resource;
 
 public class CustomRealm extends AuthorizingRealm {
 
-   @Autowired
+//   @Autowired
+//   UserRoleDao userRoleDao;
+    @Resource
    UserRoleDao userRoleDao;
 
     @Autowired
@@ -40,6 +44,9 @@ public class CustomRealm extends AuthorizingRealm {
         } else if (!password.equals(new String((char[]) token.getCredentials()))) {
             throw new AccountException("密码不正确");
         }
+        Session session = SecurityUtils.getSubject().getSession();
+       // session.setAttribute("user", token.getPrincipal());
+      //  return new SimpleAuthenticationInfo(userName,user.getPassword(),getName());
         return new SimpleAuthenticationInfo(token.getPrincipal(), password, getName());
     }
     /**

@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/test")
+@RequestMapping(value = "/auth")
 public class ShiroLoginController {
+  //  Logger logger = Logger.getLogger(ShiroLoginController.class);
 
    @Autowired
     private UserRoleDao userRoleDao;
