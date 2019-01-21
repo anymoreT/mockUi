@@ -3,7 +3,7 @@ package com.hdw.mockUi.controller.shiroController;
 import com.hdw.mockUi.dao.UserRoleDao;
 
 
-
+import com.hdw.mockUi.entity.UserInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -53,6 +53,10 @@ public class ShiroLoginController {
 
         subject.login(token);
         String tokenId = subject.getSession().getId().toString();
+
+     //   UserInfo user = (UserInfo) subject.getPrincipal();
+       // subject.getSession().setAttribute("userInfo", user);
+
         System.out.print("tokenID" + tokenId );
 
         //根据权限，指定返回数据
