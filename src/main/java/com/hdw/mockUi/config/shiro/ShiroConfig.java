@@ -4,6 +4,7 @@ import com.hdw.mockUi.config.shiro.session.ShiroSessionListener;
 
 import net.sf.ehcache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.io.ResourceUtils;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -13,6 +14,7 @@ import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -41,8 +43,8 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //游客，开发权限
         filterChainDefinitionMap.put("/guest/**", "anon");
-        //用户，需要角色权限 “user”
-        filterChainDefinitionMap.put("/user/**", "roles[user]");
+        //用户，需要角色权限 “admin”
+        filterChainDefinitionMap.put("/admin/**", "roles[admin]");
         //管理员，需要角色权限 “admin”
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");
         //开放登陆接口
@@ -74,7 +76,7 @@ public class ShiroConfig {
         //设置自定义realm.
         securityManager.setRealm(customRealm());
         //配置记住我 参考博客：
-        //   securityManager.setRememberMeManager(rememberMeManager());
+       // securityManager.setRememberMeManager(rememberMeManager());
 
         //配置 ehcache缓存管理器 参考博客：
         securityManager.setCacheManager(ehCacheManager());
@@ -84,6 +86,41 @@ public class ShiroConfig {
 
         return securityManager;
     }
+
+    /**
+     * cookie管理对象;记住我功能,rememberMe管理器
+     * @return
+     */
+//    @Bean
+//    public CookieRememberMeManager rememberMeManager(){
+//        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+//        cookieRememberMeManager.setCookie(rememberMeCookie());
+//        //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
+//        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+//        return cookieRememberMeManager;
+//    }
+
+
+    /**
+     * cookie对象;会话Cookie模板 ,默认为: JSESSIONID 问题: 与SERVLET容器名冲突,重新定义为sid或rememberMe，自定义
+     * @return
+     */
+//    @Bean
+//    public SimpleCookie rememberMeCookie(){
+//        //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
+//        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+//        //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。它有以下特点：
+//
+//        //setcookie()的第七个参数
+//        //设为true后，只能通过http访问，javascript无法访问
+//        //防止xss读取cookie
+//        simpleCookie.setHttpOnly(true);
+//        simpleCookie.setPath("/");
+//        //<!-- 记住我cookie生效时间30天 ,单位秒;-->
+//        simpleCookie.setMaxAge(10000);
+//        return simpleCookie;
+//    }
+
 
 
     /**

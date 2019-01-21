@@ -26,6 +26,7 @@ public class CustomRealm extends AuthorizingRealm {
     private void setUserMapper(UserRoleDao userRoleDao) {
         this.userRoleDao = userRoleDao;
     }
+
     /**
      * 获取身份验证信息
      * Shiro中，最终是通过 Realm 来获取应用程序中的用户、角色及权限信息的。
@@ -44,11 +45,18 @@ public class CustomRealm extends AuthorizingRealm {
         } else if (!password.equals(new String((char[]) token.getCredentials()))) {
             throw new AccountException("密码不正确");
         }
+
+        // 当验证都通过后，把用户信息放在session里
         Session session = SecurityUtils.getSubject().getSession();
-       // session.setAttribute("user", token.getPrincipal());
-      //  return new SimpleAuthenticationInfo(userName,user.getPassword(),getName());
+        session.setAttribute("userSession", token.getUsername());
+        session.setAttribute("userSessionId", session.toString());
+
+       // session.setAttribute("admin", token.getPrincipal());
+      //  return new SimpleAuthenticationInfo(userName,admin.getPassword(),getName());
         return new SimpleAuthenticationInfo(token.getPrincipal(), password, getName());
     }
+
+
     /**
      * 获取授权信息
      *

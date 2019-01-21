@@ -2,6 +2,8 @@ package com.hdw.mockUi.controller.shiroController;
 
 import com.hdw.mockUi.dao.UserRoleDao;
 
+
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -10,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping(value = "/auth")
 public class ShiroLoginController {
-  //  Logger logger = Logger.getLogger(ShiroLoginController.class);
+
 
    @Autowired
     private UserRoleDao userRoleDao;
@@ -49,9 +52,12 @@ public class ShiroLoginController {
         // 执行认证登陆
 
         subject.login(token);
+        String tokenId = subject.getSession().getId().toString();
+        System.out.print("tokenID" + tokenId );
+
         //根据权限，指定返回数据
         String role = userRoleDao.getRole(username).trim();
-        if ("user".equals(role)) {
+        if ("admin".equals(role)) {
             return "欢迎登陆";
         }
         if ("admin".equals(role)) {

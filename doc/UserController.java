@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 //普通登陆用户
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/admin")
 public class UserController{
     @Autowired
     private  ResultMap resultMap;

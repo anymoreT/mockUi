@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/admin")
 public class ThymeleafUserController {
     @Autowired
     private UserInterFace iuser;
@@ -18,21 +18,21 @@ public class ThymeleafUserController {
     public String userList(Model model){
 
         model.addAttribute("contents",iuser.getAllUser());
-        return "/user/userlist";
+        return "/admin/userlist";
     }
 
     @GetMapping("/form")
     public String form(Model model){
 
-        model.addAttribute("user" , new UserInfo());
-        return "/user/form";
+        model.addAttribute("admin" , new UserInfo());
+        return "/admin/form";
     }
 
     @GetMapping("{id}")
     public String userview(@PathVariable("id") int id , Model model){
         UserInfo user = iuser.getUserById(id);
-        model.addAttribute("user",user);
-        return "/user/userview";
+        model.addAttribute("admin",user);
+        return "/admin/userview";
     }
 
     @PostMapping("savaUser")
@@ -54,8 +54,8 @@ public class ThymeleafUserController {
     @GetMapping(value = "edit/{id}")
     public String editForm(@PathVariable("id") int id , Model model){
         UserInfo user = iuser.getUserById(id);
-        model.addAttribute("user" , user);
-        return "/user/form";
+        model.addAttribute("admin" , user);
+        return "/admin/form";
     }
 
     @GetMapping(value = "delete/{id}")
