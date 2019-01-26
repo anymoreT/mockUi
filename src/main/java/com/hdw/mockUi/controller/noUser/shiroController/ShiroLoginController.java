@@ -1,9 +1,8 @@
-package com.hdw.mockUi.controller.shiroController;
+package com.hdw.mockUi.controller.noUser.shiroController;
 
 import com.hdw.mockUi.dao.UserRoleDao;
 
 
-import com.hdw.mockUi.entity.UserInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;

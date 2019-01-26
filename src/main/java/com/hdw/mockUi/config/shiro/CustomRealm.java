@@ -47,12 +47,10 @@ public class CustomRealm extends AuthorizingRealm {
         }
 
         // 当验证都通过后，把用户信息放在session里
-        Session session = SecurityUtils.getSubject().getSession();
-        session.setAttribute("userSession", token.getUsername());
-        session.setAttribute("userSessionId", session.toString());
+//        Session session = SecurityUtils.getSubject().getSession();
+//        session.setAttribute("userSession", token.getUsername());
+//        session.setAttribute("userSessionId", session.toString());
 
-       // session.setAttribute("admin", token.getPrincipal());
-      //  return new SimpleAuthenticationInfo(userName,admin.getPassword(),getName());
         return new SimpleAuthenticationInfo(token.getPrincipal(), password, getName());
     }
 

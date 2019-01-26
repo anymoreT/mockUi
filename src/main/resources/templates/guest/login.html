@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -29,19 +29,18 @@
 <body>
 <div class="login-main">
     <label class="layui-form-label">用户登录</label>
-    <form class="layui-form" id="useLogin" action="">
+    <form action="#" class="layui-form"  id="useLogin" method="post" th:action="@{/guest/checkUser}" th:object="${user}">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-block">
-                <input type="text" name="userName" lay-verify="title" autocomplete="off" placeholder="用户名"
-                       class="layui-input">
+                <!--<input type="text" name="psname" lay-verify="title" autocomplete="off" placeholder="用户名"  class="layui-input" th:value="*{psname}">-->
+                <input type="text" name="psname" th:value="*{psname}">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-block">
-                <input type="text" name="password" lay-verify="title" autocomplete="off" placeholder="密码"
-                       class="layui-input">
+                <input type="text" name="cardno" lay-verify="title" autocomplete="off" placeholder="密码" class="layui-input" th:value="*{cardno}">
             </div>
         </div>
         <div class="layui-form-item">
@@ -54,8 +53,8 @@
 </div>
 
 
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<!--<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>-->
 <script type="text/javascript" src="../layui/layui.js"></script>
-<script type="text/javascript" src="../js/login_new.js"></script>
+<!--<script type="text/javascript" src="../js/login_new.js"></script>-->
 </body>
 </html>

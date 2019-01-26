@@ -1,4 +1,4 @@
-package com.hdw.mockUi.controller.shiroController;
+package com.hdw.mockUi.controller.noUser.shiroController;
 
 import org.apache.ibatis.mapping.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;

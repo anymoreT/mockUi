@@ -1,2 +1,6 @@
 1. 跳转到特定页面
 controll方法的注解需要写成：@Controller 而不是@RestController;如果写成@RestController表示返回的json格式，而不会注解跳转到页面上去
+2. shiro fileter会注意为加入过滤器的链接
+    filterChainDefinitionMap.put("/layui/**", "anon");
+3. thymeleaf中
+  <input type="text" name="psname" th:value="*{psname}">  name 和psname需要entity里面的字段名字一样，否则会为空

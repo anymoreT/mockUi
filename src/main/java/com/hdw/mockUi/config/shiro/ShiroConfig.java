@@ -12,6 +12,7 @@ import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
@@ -49,6 +50,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");
         //开放登陆接口
         filterChainDefinitionMap.put("/auth/login", "anon");
+        filterChainDefinitionMap.put("/layui/**", "anon");
         //其余接口一律拦截
         //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
         filterChainDefinitionMap.put("/**", "authc");
@@ -79,10 +81,10 @@ public class ShiroConfig {
        // securityManager.setRememberMeManager(rememberMeManager());
 
         //配置 ehcache缓存管理器 参考博客：
-        securityManager.setCacheManager(ehCacheManager());
+      //  securityManager.setCacheManager(ehCacheManager());
 
         //配置自定义session管理，使用ehcache 或redis
-        securityManager.setSessionManager(sessionManager());
+      //  securityManager.setSessionManager(sessionManager());
 
         return securityManager;
     }
@@ -140,21 +142,21 @@ public class ShiroConfig {
      *
      * @return
      */
-    @Bean("sessionListener")
-    public ShiroSessionListener sessionListener() {
-        ShiroSessionListener sessionListener = new ShiroSessionListener();
-        return sessionListener;
-    }
+//    @Bean("sessionListener")
+//    public ShiroSessionListener sessionListener() {
+//        ShiroSessionListener sessionListener = new ShiroSessionListener();
+//        return sessionListener;
+//    }
 
     /**
      * 配置会话ID生成器
      *
      * @return
      */
-    @Bean
-    public SessionIdGenerator sessionIdGenerator() {
-        return new JavaUuidSessionIdGenerator();
-    }
+//    @Bean
+//    public SessionIdGenerator sessionIdGenerator() {
+//        return new JavaUuidSessionIdGenerator();
+//    }
 
     /**
      * SessionDAO的作用是为Session提供CRUD并进行持久化的一个shiro组件
@@ -163,17 +165,17 @@ public class ShiroConfig {
      *
      * @return
      */
-    @Bean
-    public SessionDAO sessionDAO() {
-        EnterpriseCacheSessionDAO enterpriseCacheSessionDAO = new EnterpriseCacheSessionDAO();
-        //使用ehCacheManager
-        enterpriseCacheSessionDAO.setCacheManager(ehCacheManager());
-        //设置session缓存的名字 默认为 shiro-activeSessionCache
-        enterpriseCacheSessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
-        //sessionId生成器
-        enterpriseCacheSessionDAO.setSessionIdGenerator(sessionIdGenerator());
-        return enterpriseCacheSessionDAO;
-    }
+//    @Bean
+//    public SessionDAO sessionDAO() {
+//        EnterpriseCacheSessionDAO enterpriseCacheSessionDAO = new EnterpriseCacheSessionDAO();
+//        //使用ehCacheManager
+//        enterpriseCacheSessionDAO.setCacheManager(ehCacheManager());
+//        //设置session缓存的名字 默认为 shiro-activeSessionCache
+//        enterpriseCacheSessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
+//        //sessionId生成器
+//        enterpriseCacheSessionDAO.setSessionIdGenerator(sessionIdGenerator());
+//        return enterpriseCacheSessionDAO;
+//    }
 
     /**
      * 缓存管理器
@@ -181,20 +183,20 @@ public class ShiroConfig {
      *
      * @return
      */
-    @Bean
-    public EhCacheManager ehCacheManager() {
-        CacheManager cacheManager = CacheManager.getCacheManager("es");
-        if (cacheManager == null) {
-            try {
-                cacheManager = CacheManager.create(ResourceUtils.getInputStreamForPath("classpath:ehcache-shiro.xml"));
-            } catch (IOException e) {
-                throw new RuntimeException("initialize cacheManager failed");
-            }
-        }
-        EhCacheManager ehCacheManager = new EhCacheManager();
-        ehCacheManager.setCacheManager(cacheManager);
-        return ehCacheManager;
-    }
+//    @Bean
+//    public EhCacheManager ehCacheManager() {
+//        CacheManager cacheManager = CacheManager.getCacheManager("es");
+//        if (cacheManager == null) {
+//            try {
+//                cacheManager = CacheManager.create(ResourceUtils.getInputStreamForPath("classpath:ehcache-shiro.xml"));
+//            } catch (IOException e) {
+//                throw new RuntimeException("initialize cacheManager failed");
+//            }
+//        }
+//        EhCacheManager ehCacheManager = new EhCacheManager();
+//        ehCacheManager.setCacheManager(cacheManager);
+//        return ehCacheManager;
+//    }
 
 
     /**
@@ -203,65 +205,65 @@ public class ShiroConfig {
      *
      * @return
      */
-    @Bean("sessionIdCookie")
-    public SimpleCookie sessionIdCookie() {
-        //这个参数是cookie的名称
-        SimpleCookie simpleCookie = new SimpleCookie("sid");
-        //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。它有以下特点：
-
-        //setcookie()的第七个参数
-        //设为true后，只能通过http访问，javascript无法访问
-        //防止xss读取cookie
-        simpleCookie.setHttpOnly(true);
-        simpleCookie.setPath("/");
-        //maxAge=-1表示浏览器关闭时失效此Cookie
-        simpleCookie.setMaxAge(-1);
-        return simpleCookie;
-    }
+//    @Bean("sessionIdCookie")
+//    public SimpleCookie sessionIdCookie() {
+//        //这个参数是cookie的名称
+//        SimpleCookie simpleCookie = new SimpleCookie("sid");
+//        //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。它有以下特点：
+//
+//        //setcookie()的第七个参数
+//        //设为true后，只能通过http访问，javascript无法访问
+//        //防止xss读取cookie
+//        simpleCookie.setHttpOnly(true);
+//        simpleCookie.setPath("/");
+//        //maxAge=-1表示浏览器关闭时失效此Cookie
+//        simpleCookie.setMaxAge(-1);
+//        return simpleCookie;
+//    }
 
     /**
      * 配置会话管理器，设定会话超时及保存
      *
      * @return
      */
-    @Bean("sessionManager")
-    public SessionManager sessionManager() {
-
-        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        Collection<SessionListener> listeners = new ArrayList<SessionListener>();
-        //配置监听
-        listeners.add(sessionListener());
-        sessionManager.setSessionListeners(listeners);
-        sessionManager.setSessionIdCookie(sessionIdCookie());
-        sessionManager.setSessionDAO(sessionDAO());
-        sessionManager.setCacheManager(ehCacheManager());
-
-        //全局会话超时时间（单位毫秒），默认30分钟  暂时设置为10秒钟 用来测试
-        sessionManager.setGlobalSessionTimeout(10000);
-        //是否开启删除无效的session对象  默认为true
-        sessionManager.setDeleteInvalidSessions(true);
-        //是否开启定时调度器进行检测过期session 默认为true
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        //设置session失效的扫描时间, 清理用户直接关闭浏览器造成的孤立会话 默认为 1个小时
-        //设置该属性 就不需要设置 ExecutorServiceSessionValidationScheduler 底层也是默认自动调用ExecutorServiceSessionValidationScheduler
-        //暂时设置为 5秒 用来测试
-        sessionManager.setSessionValidationInterval(5000);
-
-        //取消url 后面的 JSESSIONID
-        sessionManager.setSessionIdUrlRewritingEnabled(false);
-
-        return sessionManager;
-
-    }
+//    @Bean("sessionManager")
+//    public SessionManager sessionManager() {
+//
+//        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+//        Collection<SessionListener> listeners = new ArrayList<SessionListener>();
+//        //配置监听
+//        listeners.add(sessionListener());
+//        sessionManager.setSessionListeners(listeners);
+//        sessionManager.setSessionIdCookie(sessionIdCookie());
+//        sessionManager.setSessionDAO(sessionDAO());
+//        sessionManager.setCacheManager(ehCacheManager());
+//
+//        //全局会话超时时间（单位毫秒），默认30分钟  暂时设置为10秒钟 用来测试
+//        sessionManager.setGlobalSessionTimeout(10000);
+//        //是否开启删除无效的session对象  默认为true
+//        sessionManager.setDeleteInvalidSessions(true);
+//        //是否开启定时调度器进行检测过期session 默认为true
+//        sessionManager.setSessionValidationSchedulerEnabled(true);
+//        //设置session失效的扫描时间, 清理用户直接关闭浏览器造成的孤立会话 默认为 1个小时
+//        //设置该属性 就不需要设置 ExecutorServiceSessionValidationScheduler 底层也是默认自动调用ExecutorServiceSessionValidationScheduler
+//        //暂时设置为 5秒 用来测试
+//        sessionManager.setSessionValidationInterval(5000);
+//
+//        //取消url 后面的 JSESSIONID
+//        sessionManager.setSessionIdUrlRewritingEnabled(false);
+//
+//        return sessionManager;
+//
+//    }
 
 
     //spring boot + shiro，不进入doGetAuthorizationInfo
-//    @Bean
-//    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-//        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-//        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-//        return authorizationAttributeSourceAdvisor;
-//    }
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
+    }
 
 
 }

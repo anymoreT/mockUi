@@ -1,4 +1,4 @@
-package com.hdw.mockUi.controller;
+package com.hdw.mockUi.controller.noUser;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
