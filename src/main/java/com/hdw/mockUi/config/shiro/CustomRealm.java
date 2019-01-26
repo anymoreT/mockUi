@@ -45,12 +45,6 @@ public class CustomRealm extends AuthorizingRealm {
         } else if (!password.equals(new String((char[]) token.getCredentials()))) {
             throw new AccountException("密码不正确");
         }
-
-        // 当验证都通过后，把用户信息放在session里
-//        Session session = SecurityUtils.getSubject().getSession();
-//        session.setAttribute("userSession", token.getUsername());
-//        session.setAttribute("userSessionId", session.toString());
-
         return new SimpleAuthenticationInfo(token.getPrincipal(), password, getName());
     }
 
@@ -63,14 +57,15 @@ public class CustomRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("————权限认证————");
+        System.out.println("————+++++进入权限认证++++++————");
         String username = (String) SecurityUtils.getSubject().getPrincipal();
+        System.out.println("————+++++username：++++++————" + username);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //获得该用户角色
         String role = userRoleDao.getRole(username);
         Set<String> set = new HashSet<>();
         //需要将 role 封装到 Set 作为 info.setRoles() 的参数
-        set.add(role);
+        set.add(role.trim());
         //设置该用户拥有的角色
         info.setRoles(set);
         return info;

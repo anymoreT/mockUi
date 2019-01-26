@@ -4,3 +4,4 @@ controll方法的注解需要写成：@Controller 而不是@RestController;如�
     filterChainDefinitionMap.put("/layui/**", "anon");
 3. thymeleaf中
   <input type="text" name="psname" th:value="*{psname}">  name 和psname需要entity里面的字段名字一样，否则会为空
+4. 认证过后，进行授权。想能访问的信息发添加进行SimpleAuthorizationInfo。浏览器会自动保存session相关信息
