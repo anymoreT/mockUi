@@ -20,7 +20,8 @@ layui.use('table', function(){
     ,height: 312
     ,url: '/admin/getRolesList' //数据接口
     ,page: true
-    ,cols: [[
+    ,cols: [
+    [
       {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
       ,{field: 'username', title: '用户名', width:80}
       ,{field: 'sex', title: '性别', width:80, sort: true}
@@ -30,7 +31,8 @@ layui.use('table', function(){
       ,{field: 'score', title: '评分', width: 80, sort: true}
       ,{field: 'classify', title: '职业', width: 80}
       ,{field: 'wealth', title: '财富', width: 135, sort: true}
-    ]]
+    ]
+    ]
   });
 
 });

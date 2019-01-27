@@ -35,7 +35,7 @@ public class GuestController {
     public String checkUser(UserInfo user) {
         shiroAuthImpl.login(user.getPsname(), user.getCardno());
       //  return "common/success";
-        return "admin/roloList";
+        return "admin/roleList";
     }
 
 }
