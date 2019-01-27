@@ -31,11 +31,17 @@ layui.use('table', function(){
       ,{field: 'score', title: '评分', width: 80, sort: true}
       ,{field: 'classify', title: '职业', width: 80}
       ,{field: 'wealth', title: '财富', width: 135, sort: true}
+      ,{field: 'handle', title: '权限分配', width: 235, align:'center', toolbar: '#barDemo'}
     ]
     ]
   });
 
 });
+</script>
+<script type="text/html" id="barDemo">
+    <input type="checkbox" name="" title="管理员">
+    <input type="checkbox" name="" title="普通用户">
+    <button class="layui-btn layui-btn-fluid">确认</button>
 </script>
 </body>
 </html>
