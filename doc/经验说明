@@ -5,3 +5,53 @@ controll方法的注解需要写成：@Controller 而不是@RestController;如�
 3. thymeleaf中
   <input type="text" name="psname" th:value="*{psname}">  name 和psname需要entity里面的字段名字一样，否则会为空
 4. 认证过后，进行授权。想能访问的信息发添加进行SimpleAuthorizationInfo。浏览器会自动保存session相关信息
+5. thymeleaf+layui渲染错误
+使用thymeleaf和layui的时候，使用layui的表格方法渲染，thymeleaf出现了渲染错误，报错信息如下：
+
+org.thymeleaf.exceptions.TemplateProcessingException: Could not parse as expression: "
+
+                {checkbox: true, fixed: true}
+                , {field: 'originalFileName', title: '文件名', width: 400, sort: true}
+                , {field: 'fileType', title: '文件类型', width: 100}
+                , {field: 'fileSize', title: '文件大小', width: 110, sort: true}
+                , {field: 'createTime', title: '上传时间', width: 170, sort: true}
+                , {field: 'dpStatus', title: '数据处理状态', width: 122, templet: '#statusTpl', sort: true}
+                , {field: 'updateTime', title: '数据处理完成时间', width: 170, templet: '#updateTimeTpl', sort: true}
+                , {fixed: 'right', title: '操作', align: 'center', width: 300, toolbar: '#operating'}
+            " (template: "textManagement" - line 125, col 22)
+
+解决方案很简单：
+
+ ,cols: [
+
+[
+
+      {field:'id', title: 'ID', sort: true}
+      ,{field:'username', title: '用户名'} //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+      ,{field:'sex', title: '性别', sort: true}
+      ,{field:'city', title: '城市'}
+      ,{field:'sign', title: '签名'}
+      ,{field:'classify', title: '职业', align: 'center'} //单元格内容水平居中
+      ,{field:'experience', title: '积分', sort: true, align: 'right'} //单元格内容水平居中
+      ,{field:'score', title: '评分', sort: true, align: 'right'}
+      ,{field:'wealth', title: '财富', sort: true, align: 'right'}
+    ]
+
+]
+
+也就是把cols后的[[ ]]变为
+
+[
+
+    [
+
+    ]
+
+]
+
+因为[[…]]之间的表达式在thymeleaf被认为是内联表达式,所以渲染错误
+
+看到这里你一定是为了实现表格分页功能，layui已经封装好请求格式，开启分页就可以了，后台接收数据的方法，参数一定设成int page, int limit
+
+还有一个小问题，layui的第一页请求是1，而我们平时操作数据库的方法接收第一页应该是0，直接page-1就可以了。
+

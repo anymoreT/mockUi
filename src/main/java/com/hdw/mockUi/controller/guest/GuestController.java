@@ -34,7 +34,8 @@ public class GuestController {
     @RequestMapping(value = "/checkUser", method = RequestMethod.POST)
     public String checkUser(UserInfo user) {
         shiroAuthImpl.login(user.getPsname(), user.getCardno());
-        return "common/success";
+      //  return "common/success";
+        return "admin/roloList";
     }
 
 }
