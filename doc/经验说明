@@ -55,3 +55,44 @@ org.thymeleaf.exceptions.TemplateProcessingException: Could not parse as express
 
 还有一个小问题，layui的第一页请求是1，而我们平时操作数据库的方法接收第一页应该是0，直接page-1就可以了。
 
+6.layui中的table checkbox 默认选中设置
+方法1
+在返回的json中设置LAY_CHECKED为true，页面上的checkbox就是选中状态了。
+
+data":[
+    {"name":"北京市","areaType":"省/直辖市","id":"110000","LAY_CHECKED":true},
+    {"name":"市辖区","areaType":"地市","id":"110100","LAY_CHECKED":true},
+    {"name":"县","areaType":"地市","id":"110200","LAY_CHECKED":false}
+]
+1
+2
+3
+4
+5
+方法2
+如果返回的数据中没有LAY_CHECKED怎么办？比如说返回的是这样的数据：
+
+data":[
+    {"name":"北京市","areaType":"省/直辖市","id":"110000","checked":true},
+    {"name":"市辖区","areaType":"地市","id":"110100","checked":true},
+    {"name":"县","areaType":"地市","id":"110200","checked":false}
+]
+1
+2
+3
+4
+5
+注意：这里用的是checked来标识是否选中，而非LAY_CHECKED。
+
+这时候可以修改下页面的js。
+
+layui.use('table', function(){
+	var $ = layui.$;
+	var table = layui.table;
+
+	//在使用table之前加上下面这句就可以了
+	table =  $.extend(table, {config: {checkName: 'checked'}});
+	table.render({
+	    ...
+	});
+});
